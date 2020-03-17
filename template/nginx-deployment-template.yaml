@@ -1,0 +1,127 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: SERVICE_NAME
+  namespace: NAMESPACE
+  labels:
+    project: SERVICE_NAME
+    env: NAMESPACE
+    tier: TIER
+    run: RUN
+    subsystem: SUBSYSTEM
+spec:
+  replicas: REPLICAS_COUNT
+  selector:
+    matchLabels:
+      project: SERVICE_NAME
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+  minReadySeconds: 5
+  revisionHistoryLimit: 5
+  template:
+    metadata:
+      labels:
+        project: SERVICE_NAME
+        env: NAMESPACE
+        tier: TIER
+        run: RUN
+        subsystem: SUBSYSTEM
+    spec:
+      nodeSelector:
+        nginx: NAMESPACE
+      containers:
+      - name: SERVICE_NAME
+        image: DOCKER_IMAGE_HOST/build_fire/nginx:IMAGE_TAG
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: HTTP_PORT
+          hostPort: HTTP_PORT
+        - name: https
+          containerPort: HTTPS_PORT
+          hostPort: HTTPS_PORT
+        resources:
+          requests:
+            memory: MINMEMORY
+            cpu: MINCPU
+          limits:
+            memory: MAXMEMORY
+            cpu: MAXCPU
+        envFrom:
+        - configMapRef:
+            name: publicenv
+        volumeMounts:
+          - name: SERVICE_NAME-config
+            mountPath: /etc/nginx/nginx.conf
+            subPath: nginx.conf
+          - name: SERVICE_NAME-config
+            mountPath: /etc/nginx/site/manage.conf
+            subPath: manage.conf
+          - name: SERVICE_NAME-config
+            mountPath: /etc/nginx/conf.d/addnocache
+            subPath: addnocache
+          - name: SERVICE_NAME-config
+            mountPath: /etc/nginx/conf.d/whitelist-ip
+            subPath: whitelist-ip            
+          - name: SERVICE_NAME-config
+            mountPath: /etc/nginx/conf.d/allow-swagger
+            subPath: allow-swagger 
+          - name: SERVICE_NAME-config
+            mountPath: /etc/nginx/conf.d/proxy_params
+            subPath: proxy_params
+          - name: SERVICE_NAME-config
+            mountPath: /etc/nginx/conf.d/websocket_params
+            subPath: websocket_params        
+          - name: SERVICE_NAME-config
+            mountPath: /etc/nginx/cert/innodealing.crt
+            subPath: innodealing.crt
+          - name: SERVICE_NAME-config
+            mountPath: /etc/nginx/cert/innodealing.key
+            subPath: innodealing.key  
+          - name: SERVICE_NAME-config
+            mountPath: /etc/nginx/site/innodealing.conf
+            subPath: innodealing.conf
+          - name: SERVICE_NAME-config
+            mountPath: /etc/nginx/site/bondinsight.conf
+            subPath: bondinsight.conf
+          - name: SERVICE_NAME-config
+            mountPath: /var/www/html/MP_verify_q7MrsLnVcPxxam2R.txt
+            subPath: MP_verify_q7MrsLnVcPxxam2R.txt
+            
+      volumes:
+      - name: SERVICE_NAME-config
+        configMap:
+          name: SERVICE_NAME-config
+          items:
+          - key: nginx.conf
+            path: nginx.conf
+          ## in site directory  
+          - key: manage.conf
+            path: manage.conf
+          ## in conf.d directory 
+          - key: addnocache
+            path: addnocache
+          - key: whitelist-ip
+            path: whitelist-ip
+          - key: allow-swagger
+            path: allow-swagger
+          - key: proxy_params
+            path: proxy_params
+          - key: websocket_params
+            path: websocket_params
+          ## in cert directory
+          - key: innodealing.crt
+            path: innodealing.crt
+          - key: innodealing.key
+            path: innodealing.key
+          - key: innodealing.conf
+            path: innodealing.conf  
+          - key: bondinsight.conf
+            path: bondinsight.conf
+          - key: MP_verify_q7MrsLnVcPxxam2R.txt
+            path: MP_verify_q7MrsLnVcPxxam2R.txt
+      imagePullSecrets:
+        - name: registry-secret

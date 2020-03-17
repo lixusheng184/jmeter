@@ -1,0 +1,12 @@
+apiVersion: settings.k8s.io/v1alpha1
+kind: PodPreset
+metadata:
+  name: inject-publicenv
+  namespace: NAMESPACE
+spec:
+  selector:
+    matchLabels:
+      environment: NAMESPACE
+  envFrom:
+  - configMapRef:
+      name: publicenv
