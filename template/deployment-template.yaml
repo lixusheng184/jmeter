@@ -30,8 +30,8 @@ spec:
         run: RUN
         subsystem: SUBSYSTEM
     spec:
-      nodeSelector:
-        env: NAMESPACE
+#      nodeSelector:
+#        env: NAMESPACE
       containers:
       - name: SERVICE_NAME
         image: DOCKER_IMAGE_HOST/build_v3/SERVICE_NAME:IMAGE_TAG
