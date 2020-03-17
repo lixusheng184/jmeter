@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    scheduler.alpha.kubernetes.io/critical-pod: ""
+  creationTimestamp: null
+  labels:
+    component: jenkins
+    tier: control-plane
+  name: jenkins
+  namespace: kube-system
+spec:
+  containers:
+  - image: registry.innodealing.com/fire/jenkins:lts
+    imagePullPolicy: IfNotPresent
+    name: jenkins
+    env:
+    - name: TZ
+      value: "Asia/Shanghai"
+    resources: {}
+    volumeMounts:
+    - mountPath: /var/jenkins_home
+      name: jenkins-data
+  hostNetwork: true
+  priorityClassName: system-cluster-critical
+  volumes:
+  - hostPath:
+      path: /var/lib/jenkins
+      type: DirectoryOrCreate
+    name: jenkins-data
+status: {}

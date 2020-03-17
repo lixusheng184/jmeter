@@ -1,0 +1,27 @@
+pipeline {
+    agent {
+        node {
+            label "kubectl"
+            customWorkspace "workspace/${env.JOB_NAME}"
+        }
+    }
+
+    stages {
+        stage("deploy") {
+            steps {
+	        script {
+                    sh "echo ====++++ Deploy 03_kubernetes-dashboard ++++===="
+                    sh "kubectl delete namespace kubernetes-dashboard"
+                    sh "kubectl apply -f install/03_kubernetes-dashboard/install/recommended.yaml"
+                    sh "kubectl apply -f install/03_kubernetes-dashboard/install/access-control.yaml"
+		}
+	    }
+        }
+        stage("get token") {
+            steps {
+                sh "kubectl -n kubernetes-dashboard describe secret \$(kubectl -n kubernetes-dashboard get secret | grep admin-user | awk '{print \$1}')"
+            }
+        }
+    }
+
+}

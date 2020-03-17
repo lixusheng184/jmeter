@@ -1,0 +1,20 @@
+pipeline {
+    agent {
+        node {
+            label "kubectl"
+            customWorkspace "workspace/${env.JOB_NAME}"
+        }
+    }
+
+    stages {
+        stage("deploy") {
+            steps {
+	            script {
+	                sh "echo ====++++ Deploy 02_k8s-config ++++===="
+		            sh "install/02_k8s-config/k8s-config.sh"
+		        }
+	        }
+        }
+    }
+
+}

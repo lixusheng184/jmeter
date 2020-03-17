@@ -1,0 +1,23 @@
+pipeline {
+    agent {
+        node {
+            label "kubectl"
+            customWorkspace "workspace/${env.JOB_NAME}"
+        }
+    }
+
+    stages {
+        stage("deploy") {
+            steps {
+	        script {
+                    sh "echo ====++++ Deploy 04_elk ++++===="
+                    sh "kubectl -n kube-system delete statefulset elasticsearch-logging || true"
+                    sh "kubectl -n kube-system delete configmap fluentd-es-config-v0.2.0 || true"
+                    sh "kubectl -n kube-system delete daemonset fluentd-es-v2.6.0 || true"
+                    sh "kubectl -n kube-system delete deployment kibana-logging || true"
+                    sh "kubectl apply -f install/04_elk/install"
+		}
+	    }
+        }
+    }
+}
