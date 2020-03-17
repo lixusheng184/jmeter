@@ -34,7 +34,7 @@ spec:
 #        env: NAMESPACE
       containers:
       - name: SERVICE_NAME
-        image: DOCKER_IMAGE_HOST/build_v3/SERVICE_NAME:IMAGE_TAG
+        image: DOCKER_IMAGE_HOST/build_v1/SERVICE_NAME:IMAGE_TAG
         imagePullPolicy: Always
 COMMAND
         ports:
