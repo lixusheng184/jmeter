@@ -85,9 +85,6 @@ spec:
             mountPath: /etc/nginx/site/innodealing.conf
             subPath: innodealing.conf
           - name: SERVICE_NAME-config
-            mountPath: /etc/nginx/site/bondinsight.conf
-            subPath: bondinsight.conf
-          - name: SERVICE_NAME-config
             mountPath: /var/www/html/MP_verify_q7MrsLnVcPxxam2R.txt
             subPath: MP_verify_q7MrsLnVcPxxam2R.txt
             
@@ -119,8 +116,6 @@ spec:
             path: innodealing.key
           - key: innodealing.conf
             path: innodealing.conf  
-          - key: bondinsight.conf
-            path: bondinsight.conf
           - key: MP_verify_q7MrsLnVcPxxam2R.txt
             path: MP_verify_q7MrsLnVcPxxam2R.txt
       imagePullSecrets:
