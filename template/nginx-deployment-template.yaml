@@ -31,7 +31,7 @@ spec:
         subsystem: SUBSYSTEM
     spec:
       nodeSelector:
-        nginx: NAMESPACE
+        nginx-dm: NAMESPACE
       containers:
       - name: SERVICE_NAME
         image: DOCKER_IMAGE_HOST/build_fire/nginx:IMAGE_TAG
