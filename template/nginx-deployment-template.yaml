@@ -76,6 +76,9 @@ spec:
             mountPath: /etc/nginx/conf.d/websocket_params
             subPath: websocket_params        
           - name: SERVICE_NAME-config
+            mountPath: /etc/nginx/conf.d/allowOrigin
+            subPath: allowOrigin              
+          - name: SERVICE_NAME-config
             mountPath: /etc/nginx/cert/innodealing.crt
             subPath: innodealing.crt
           - name: SERVICE_NAME-config
@@ -109,6 +112,8 @@ spec:
             path: proxy_params
           - key: websocket_params
             path: websocket_params
+          - key: allowOrigin
+            path: allowOrigin            
           ## in cert directory
           - key: innodealing.crt
             path: innodealing.crt
