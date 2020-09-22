@@ -90,6 +90,9 @@ spec:
           - name: SERVICE_NAME-config
             mountPath: /var/www/html/MP_verify_q7MrsLnVcPxxam2R.txt
             subPath: MP_verify_q7MrsLnVcPxxam2R.txt
+          - name: SERVICE_NAME-config
+            mountPath: /etc/nginx/site/innodealing-alpha.conf
+            subPath: innodealing-alpha.conf           
             
       volumes:
       - name: SERVICE_NAME-config
@@ -123,5 +126,7 @@ spec:
             path: innodealing.conf  
           - key: MP_verify_q7MrsLnVcPxxam2R.txt
             path: MP_verify_q7MrsLnVcPxxam2R.txt
+          - key: innodealing-alpha.conf
+            path: innodealing-alpha.conf
       imagePullSecrets:
         - name: registry-secret
