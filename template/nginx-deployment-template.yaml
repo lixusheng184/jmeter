@@ -92,7 +92,10 @@ spec:
             subPath: MP_verify_q7MrsLnVcPxxam2R.txt
           - name: SERVICE_NAME-config
             mountPath: /etc/nginx/site/innodealing-alpha.conf
-            subPath: innodealing-alpha.conf           
+            subPath: innodealing-alpha.conf         
+          - name: SERVICE_NAME-config
+            mountPath: /etc/nginx/site/tianfeng.conf
+            subPath: tianfeng.conf      
             
       volumes:
       - name: SERVICE_NAME-config
@@ -128,5 +131,7 @@ spec:
             path: MP_verify_q7MrsLnVcPxxam2R.txt
           - key: innodealing-alpha.conf
             path: innodealing-alpha.conf
+          - key: tianfeng.conf
+            path: tianfeng.conf
       imagePullSecrets:
         - name: registry-secret
